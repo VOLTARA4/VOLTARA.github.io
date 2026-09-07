@@ -1,0 +1,1554 @@
+```html
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VOLTARA</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#070707;
+  color:white;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  height:75px;
+  background:#050505;
+  border-bottom:1px solid #222;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 6%;
+}
+
+.logo{
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:5px;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:25px;
+  font-weight:bold;
+}
+
+nav a:hover{
+  color:#ff2222;
+}
+
+.cart-button{
+  margin-left:20px;
+  padding:10px 17px;
+  border:0;
+  border-radius:20px;
+  background:#e50909;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.hero{
+  min-height:500px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:70px 20px;
+  background:
+  radial-gradient(circle at center,#450000 0%,#150000 35%,#070707 70%);
+}
+
+.hero h1{
+  font-size:clamp(55px,12vw,130px);
+  letter-spacing:12px;
+  font-weight:1000;
+}
+
+.hero p{
+  color:#ccc;
+  margin-top:20px;
+  font-size:20px;
+  letter-spacing:3px;
+}
+
+.hero button{
+  margin-top:30px;
+  padding:15px 35px;
+  border:0;
+  border-radius:30px;
+  background:#e50909;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.products{
+  padding:70px 6%;
+}
+
+.products h2{
+  text-align:center;
+  font-size:40px;
+  margin-bottom:45px;
+  letter-spacing:3px;
+}
+
+.product-grid{
+  display:grid;
+  grid-template-columns:
+  repeat(auto-fit,minmax(245px,1fr));
+  gap:25px;
+}
+
+.product{
+  background:#111;
+  border:1px solid #292929;
+  border-radius:20px;
+  overflow:hidden;
+  text-align:center;
+  padding-bottom:22px;
+  transition:.3s;
+}
+
+.product:hover{
+  transform:translateY(-7px);
+  border-color:#e50909;
+  box-shadow:0 10px 35px rgba(255,0,0,.15);
+}
+
+.product-image{
+  height:250px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:
+  linear-gradient(145deg,#1b1b1b,#080808);
+  font-size:85px;
+}
+
+.product h3{
+  margin-top:20px;
+  font-size:21px;
+  letter-spacing:1px;
+}
+
+.type{
+  color:#999;
+  margin-top:8px;
+  font-size:14px;
+}
+
+.price{
+  margin:15px 0;
+  font-size:21px;
+  font-weight:bold;
+}
+
+.sizes{
+  padding:0 15px;
+  color:#aaa;
+  font-size:14px;
+  line-height:1.7;
+  min-height:50px;
+}
+
+.order-btn,
+.add-btn{
+  border:0;
+  border-radius:25px;
+  padding:11px 18px;
+  margin:5px;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.order-btn{
+  background:#e50909;
+}
+
+.add-btn{
+  background:#242424;
+}
+
+.order-btn:hover{
+  background:#ff3333;
+}
+
+.add-btn:hover{
+  background:#444;
+}
+
+.about{
+  text-align:center;
+  padding:80px 7%;
+  background:#0d0d0d;
+}
+
+.about h2{
+  font-size:38px;
+  margin-bottom:20px;
+}
+
+.about p{
+  max-width:750px;
+  margin:auto;
+  color:#aaa;
+  line-height:1.7;
+}
+
+.contact{
+  text-align:center;
+  padding:50px 20px;
+  background:#090909;
+}
+
+.contact h2{
+  margin-bottom:15px;
+}
+
+.phone{
+  font-size:25px;
+  font-weight:bold;
+  color:#ff3030;
+}
+
+footer{
+  padding:30px;
+  text-align:center;
+  color:#777;
+  background:#050505;
+}
+
+
+/* MODALS */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  z-index:999;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal-content{
+  width:100%;
+  max-width:500px;
+  max-height:90vh;
+  overflow:auto;
+  background:#151515;
+  border:1px solid #333;
+  border-radius:20px;
+  padding:30px;
+}
+
+.close{
+  float:right;
+  font-size:27px;
+  cursor:pointer;
+  color:#aaa;
+}
+
+.close:hover{
+  color:white;
+}
+
+.modal h2{
+  margin-bottom:20px;
+}
+
+.modal input,
+.modal textarea{
+  width:100%;
+  padding:13px;
+  margin-bottom:12px;
+  background:#080808;
+  color:white;
+  border:1px solid #333;
+  border-radius:10px;
+}
+
+.submit{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:10px;
+  background:#e50909;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  background:#0c0c0c;
+  padding:14px;
+  margin-bottom:10px;
+  border-radius:10px;
+}
+
+.remove{
+  background:#b00000;
+  color:white;
+  border:0;
+  padding:7px 10px;
+  border-radius:7px;
+  cursor:pointer;
+}
+
+.total{
+  font-size:23px;
+  font-weight:bold;
+  margin:20px 0;
+  text-align:right;
+}
+
+.quantity{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.quantity button{
+  width:28px;
+  height:28px;
+  border:0;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.empty{
+  color:#888;
+  text-align:center;
+  padding:20px;
+}
+
+@media(max-width:700px){
+
+  header{
+    padding:0 4%;
+  }
+
+  nav a{
+    display:none;
+  }
+
+  .hero h1{
+    letter-spacing:5px;
+  }
+
+  .products{
+    padding:50px 4%;
+  }
+
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+  <div class="logo">
+    VOLTARA
+  </div>
+
+  <nav>
+    <a href="#products">Məhsullar</a>
+    <a href="#about">Haqqımızda</a>
+    <a href="#contact">Əlaqə</a>
+
+    <button
+      class="cart-button"
+      onclick="openCart()">
+      🛒 Səbət (<span id="cartCount">0</span>)
+    </button>
+  </nav>
+
+</header>
+
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <div>
+
+    <h1>VOLTARA</h1>
+
+    <p>
+      FUTURE IN EVERY SIP.
+    </p>
+
+    <button onclick="goProducts()">
+      MƏHSULLARA BAX
+    </button>
+
+  </div>
+
+</section>
+
+
+
+<!-- PRODUCTS -->
+
+<section
+  class="products"
+  id="products">
+
+  <h2>
+    VOLTARA İÇKİLƏRİ
+  </h2>
+
+  <div class="product-grid">
+
+
+
+<!-- 1 -->
+
+<div class="product">
+
+  <div class="product-image">
+    🥤
+  </div>
+
+  <h3>
+    VOLTARA SUMMER
+  </h3>
+
+  <div class="type">
+    DƏMİR QAB
+  </div>
+
+  <div class="price">
+    1,20 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="addToCart('VOLTARA SUMMER — Dəmir qab',1.20)">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA SUMMER — Dəmir qab')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+
+<!-- 2 -->
+
+<div class="product">
+
+  <div class="product-image">
+    🟢
+  </div>
+
+  <h3>
+    VOLTARA GREEN
+  </h3>
+
+  <div class="type">
+    DƏMİR QAB
+  </div>
+
+  <div class="price">
+    1,20 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="addToCart('VOLTARA GREEN — Dəmir qab',1.20)">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA GREEN — Dəmir qab')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+
+<!-- 3 -->
+
+<div class="product">
+
+  <div class="product-image">
+    🔴
+  </div>
+
+  <h3>
+    VOLTARA RED
+  </h3>
+
+  <div class="type">
+    DƏMİR QAB
+  </div>
+
+  <div class="price">
+    1,20 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="addToCart('VOLTARA RED — Dəmir qab',1.20)">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA RED — Dəmir qab')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+
+<!-- 4 -->
+
+<div class="product">
+
+  <div class="product-image">
+    ⚪
+  </div>
+
+  <h3>
+    VOLTARA WHITE
+  </h3>
+
+  <div class="type">
+    DƏMİR QAB
+  </div>
+
+  <div class="price">
+    1,20 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="addToCart('VOLTARA WHITE — Dəmir qab',1.20)">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA WHITE — Dəmir qab')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+
+<!-- 5 -->
+
+<div class="product">
+
+  <div class="product-image">
+    🔮
+  </div>
+
+  <h3>
+    VOLTARA SECRET
+  </h3>
+
+  <div class="type">
+    DƏMİR QAB
+  </div>
+
+  <div class="price">
+    2,00 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="addToCart('VOLTARA SECRET — Dəmir qab',2)">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA SECRET — Dəmir qab')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+
+<!-- 6 -->
+
+<div class="product">
+
+  <div class="product-image">
+    🧃
+  </div>
+
+  <h3>
+    VOLTARA SUMMER
+  </h3>
+
+  <div class="type">
+    ŞÜŞƏ QAB — 1L
+  </div>
+
+  <div class="price">
+    1,00 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="addToCart('VOLTARA SUMMER — Şüşə 1L',1)">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA SUMMER — Şüşə 1L')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+
+<!-- 7 -->
+
+<div class="product">
+
+  <div class="product-image">
+    🟩
+  </div>
+
+  <h3>
+    VOLTARA GREEN
+  </h3>
+
+  <div class="type">
+    ŞÜŞƏ QAB — 1L
+  </div>
+
+  <div class="price">
+    1,00 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="addToCart('VOLTARA GREEN — Şüşə 1L',1)">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA GREEN — Şüşə 1L')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+
+<!-- 8 -->
+
+<div class="product">
+
+  <div class="product-image">
+    🔴
+  </div>
+
+  <h3>
+    VOLTARA RED
+  </h3>
+
+  <div class="type">
+    ŞÜŞƏ QAB — 1L
+  </div>
+
+  <div class="price">
+    1,00 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="addToCart('VOLTARA RED — Şüşə 1L',1)">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA RED — Şüşə 1L')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+
+<!-- 9 -->
+
+<div class="product">
+
+  <div class="product-image">
+    ⚪
+  </div>
+
+  <h3>
+    VOLTARA WHITE
+  </h3>
+
+  <div class="type">
+    ŞÜŞƏ QAB — 1L
+  </div>
+
+  <div class="price">
+    1,00 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="addToCart('VOLTARA WHITE — Şüşə 1L',1)">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA WHITE — Şüşə 1L')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+
+<!-- 10 -->
+
+<div class="product">
+
+  <div class="product-image">
+    🧴
+  </div>
+
+  <h3>
+    VOLTARA SUMMER
+  </h3>
+
+  <div class="type">
+    KAPRON QAB
+  </div>
+
+  <div class="sizes">
+    0,5L — 0,70 AZN<br>
+    1L — 1,00 AZN<br>
+    1,5L — 1,40 AZN<br>
+    2L — 1,80 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="chooseSize('VOLTARA SUMMER — Kapron')">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA SUMMER — Kapron')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+
+<!-- 11 -->
+
+<div class="product">
+
+  <div class="product-image">
+    🔴
+  </div>
+
+  <h3>
+    VOLTARA RED
+  </h3>
+
+  <div class="type">
+    KAPRON QAB
+  </div>
+
+  <div class="sizes">
+    0,5L — 0,70 AZN<br>
+    1L — 1,00 AZN<br>
+    1,5L — 1,40 AZN<br>
+    2L — 1,80 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="chooseSize('VOLTARA RED — Kapron')">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA RED — Kapron')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+
+<!-- 12 -->
+
+<div class="product">
+
+  <div class="product-image">
+    🟢
+  </div>
+
+  <h3>
+    VOLTARA GREEN
+  </h3>
+
+  <div class="type">
+    KAPRON QAB
+  </div>
+
+  <div class="sizes">
+    0,5L — 0,70 AZN<br>
+    1L — 1,00 AZN<br>
+    1,5L — 1,40 AZN<br>
+    2L — 1,80 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="chooseSize('VOLTARA GREEN — Kapron')">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA GREEN — Kapron')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+
+<!-- 13 -->
+
+<div class="product">
+
+  <div class="product-image">
+    ⚪
+  </div>
+
+  <h3>
+    VOLTARA WHITE
+  </h3>
+
+  <div class="type">
+    KAPRON QAB
+  </div>
+
+  <div class="sizes">
+    0,5L — 0,70 AZN<br>
+    1L — 1,00 AZN<br>
+    1,5L — 1,40 AZN<br>
+    2L — 1,80 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="chooseSize('VOLTARA WHITE — Kapron')">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA WHITE — Kapron')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+
+<!-- 14 -->
+
+<div class="product">
+
+  <div class="product-image">
+    🔮
+  </div>
+
+  <h3>
+    VOLTARA SECRET
+  </h3>
+
+  <div class="type">
+    KAPRON QAB — 1L
+  </div>
+
+  <div class="price">
+    1,50 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="addToCart('VOLTARA SECRET — Kapron 1L',1.50)">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA SECRET — Kapron 1L')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+
+<!-- 15 -->
+
+<div class="product">
+
+  <div class="product-image">
+    🔮
+  </div>
+
+  <h3>
+    VOLTARA SECRET
+  </h3>
+
+  <div class="type">
+    ŞÜŞƏ QAB — 1L
+  </div>
+
+  <div class="price">
+    1,50 AZN
+  </div>
+
+  <button
+    class="add-btn"
+    onclick="addToCart('VOLTARA SECRET — Şüşə 1L',1.50)">
+    SƏBƏTƏ ƏLAVƏ ET
+  </button>
+
+  <button
+    class="order-btn"
+    onclick="quickOrder('VOLTARA SECRET — Şüşə 1L')">
+    SİFARİŞ ET
+  </button>
+
+</div>
+
+
+  </div>
+</section>
+
+
+
+<!-- ABOUT -->
+
+<section
+  class="about"
+  id="about">
+
+  <h2>VOLTARA</h2>
+
+  <p>
+    VOLTARA — müasir görünüşü, fərqli qablaşdırması
+    və yeni nəsil içki konsepti ilə hazırlanmış brenddir.
+    Gələcəyin dadını bu gün kəşf et.
+  </p>
+
+</section>
+
+
+
+<!-- CONTACT -->
+
+<section
+  class="contact"
+  id="contact">
+
+  <h2>ƏLAQƏ</h2>
+
+  <div class="phone">
+    +994 070 400 1000
+  </div>
+
+</section>
+
+
+
+<footer>
+  © 2026 VOLTARA — Bütün hüquqlar qorunur.
+</footer>
+
+
+
+<!-- CART MODAL -->
+
+<div
+  class="modal"
+  id="cartModal">
+
+  <div class="modal-content">
+
+    <span
+      class="close"
+      onclick="closeCart()">
+      ×
+    </span>
+
+    <h2>🛒 SƏBƏT</h2>
+
+    <div id="cartItems"></div>
+
+    <div
+      class="total"
+      id="cartTotal">
+      Cəmi: 0,00 AZN
+    </div>
+
+    <button
+      class="submit"
+      onclick="openCheckout()">
+      SİFARİŞƏ KEÇ
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<!-- SIZE MODAL -->
+
+<div
+  class="modal"
+  id="sizeModal">
+
+  <div class="modal-content">
+
+    <span
+      class="close"
+      onclick="closeSize()">
+      ×
+    </span>
+
+    <h2>ÖLÇÜ SEÇ</h2>
+
+    <div id="sizeProduct"></div>
+
+    <br>
+
+    <button
+      class="submit"
+      onclick="selectSize(0.5,0.70)">
+      0,5L — 0,70 AZN
+    </button>
+
+    <br><br>
+
+    <button
+      class="submit"
+      onclick="selectSize(1,1)">
+      1L — 1,00 AZN
+    </button>
+
+    <br><br>
+
+    <button
+      class="submit"
+      onclick="selectSize(1.5,1.40)">
+      1,5L — 1,40 AZN
+    </button>
+
+    <br><br>
+
+    <button
+      class="submit"
+      onclick="selectSize(2,1.80)">
+      2L — 1,80 AZN
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<!-- CHECKOUT -->
+
+<div
+  class="modal"
+  id="checkoutModal">
+
+  <div class="modal-content">
+
+    <span
+      class="close"
+      onclick="closeCheckout()">
+      ×
+    </span>
+
+    <h2>SİFARİŞ MƏLUMATLARI</h2>
+
+    <input
+      id="customerName"
+      placeholder="Adınız">
+
+    <input
+      id="customerPhone"
+      placeholder="Telefon nömrəsi">
+
+    <textarea
+      id="customerAddress"
+      rows="4"
+      placeholder="Çatdırılma ünvanı"></textarea>
+
+    <button
+      class="submit"
+      onclick="submitOrder()">
+      SİFARİŞİ GÖNDƏR
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<script>
+
+let cart = [];
+
+let selectedSizeProduct = "";
+
+
+
+/* PRODUCTS */
+
+function addToCart(name,price){
+
+  let existing =
+    cart.find(item => item.name === name);
+
+  if(existing){
+
+    existing.quantity++;
+
+  }else{
+
+    cart.push({
+      name:name,
+      price:price,
+      quantity:1
+    });
+
+  }
+
+  updateCart();
+
+  alert("Məhsul səbətə əlavə edildi!");
+
+}
+
+
+
+function chooseSize(product){
+
+  selectedSizeProduct = product;
+
+  document
+    .getElementById("sizeProduct")
+    .innerText = product;
+
+  document
+    .getElementById("sizeModal")
+    .style.display = "flex";
+
+}
+
+
+
+function selectSize(liter,price){
+
+  addToCart(
+    selectedSizeProduct +
+    " — " +
+    liter +
+    "L",
+    price
+  );
+
+  closeSize();
+
+}
+
+
+
+/* CART */
+
+function updateCart(){
+
+  const container =
+    document.getElementById("cartItems");
+
+  const count =
+    document.getElementById("cartCount");
+
+  let totalQuantity = 0;
+  let totalPrice = 0;
+
+  container.innerHTML = "";
+
+  if(cart.length === 0){
+
+    container.innerHTML =
+      '<div class="empty">Səbət boşdur.</div>';
+
+  }
+
+  cart.forEach((item,index)=>{
+
+    totalQuantity += item.quantity;
+
+    totalPrice +=
+      item.price * item.quantity;
+
+    const div =
+      document.createElement("div");
+
+    div.className = "cart-item";
+
+    div.innerHTML = `
+
+      <div>
+        <b>${item.name}</b><br>
+        ${item.price.toFixed(2).replace(".",",")} AZN
+      </div>
+
+      <div class="quantity">
+
+        <button
+          onclick="changeQuantity(${index},-1)">
+          −
+        </button>
+
+        <span>
+          ${item.quantity}
+        </span>
+
+        <button
+          onclick="changeQuantity(${index},1)">
+          +
+        </button>
+
+        <button
+          class="remove"
+          onclick="removeItem(${index})">
+          Sil
+        </button>
+
+      </div>
+
+    `;
+
+    container.appendChild(div);
+
+  });
+
+
+  count.innerText =
+    totalQuantity;
+
+  document
+    .getElementById("cartTotal")
+    .innerText =
+    "Cəmi: " +
+    totalPrice
+      .toFixed(2)
+      .replace(".",",") +
+    " AZN";
+
+}
+
+
+
+function changeQuantity(index,change){
+
+  cart[index].quantity += change;
+
+  if(cart[index].quantity <= 0){
+
+    cart.splice(index,1);
+
+  }
+
+  updateCart();
+
+}
+
+
+
+function removeItem(index){
+
+  cart.splice(index,1);
+
+  updateCart();
+
+}
+
+
+
+function openCart(){
+
+  updateCart();
+
+  document
+    .getElementById("cartModal")
+    .style.display = "flex";
+
+}
+
+
+
+function closeCart(){
+
+  document
+    .getElementById("cartModal")
+    .style.display = "none";
+
+}
+
+
+
+/* CHECKOUT */
+
+function openCheckout(){
+
+  if(cart.length === 0){
+
+    alert("Səbət boşdur!");
+
+    return;
+
+  }
+
+  closeCart();
+
+  document
+    .getElementById("checkoutModal")
+    .style.display = "flex";
+
+}
+
+
+
+function closeCheckout(){
+
+  document
+    .getElementById("checkoutModal")
+    .style.display = "none";
+
+}
+
+
+
+function submitOrder(){
+
+  const name =
+    document.getElementById("customerName").value;
+
+  const phone =
+    document.getElementById("customerPhone").value;
+
+  const address =
+    document.getElementById("customerAddress").value;
+
+
+  if(!name || !phone || !address){
+
+    alert(
+      "Zəhmət olmasa bütün məlumatları doldurun."
+    );
+
+    return;
+
+  }
+
+
+  let orderText =
+    "SİFARİŞ\n\n";
+
+
+  cart.forEach(item=>{
+
+    orderText +=
+      item.name +
+      " x " +
+      item.quantity +
+      " — " +
+      (
+        item.price *
+        item.quantity
+      ).toFixed(2) +
+      " AZN\n";
+
+  });
+
+
+  let total =
+    cart.reduce(
+      (sum,item)=>
+      sum + item.price * item.quantity,
+      0
+    );
+
+
+  orderText +=
+    "\nCəmi: " +
+    total.toFixed(2) +
+    " AZN\n\n";
+
+  orderText +=
+    "Müştəri: " +
+    name +
+    "\nTelefon: " +
+    phone +
+    "\nÜnvan: " +
+    address;
+
+
+  alert(
+    "Sifariş hazırlandı!\n\n" +
+    orderText
+  );
+
+
+  cart = [];
+
+  updateCart();
+
+  closeCheckout();
+
+}
+
+
+
+/* QUICK ORDER */
+
+function quickOrder(product){
+
+  cart = [];
+
+  let price = 1.20;
+
+  if(product.includes("SECRET")){
+
+    if(product.includes("Şüşə")){
+
+      price = 1.50;
+
+    }else{
+
+      price = 2.00;
+
+    }
+
+  }
+
+  if(product.includes("Şüşə") &&
+     !product.includes("SECRET")){
+
+    price = 1.00;
+
+  }
+
+  addToCart(product,price);
+
+  openCheckout();
+
+}
+
+
+
+/* HERO */
+
+function goProducts(){
+
+  document
+    .getElementById("products")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
+
+/* CLOSE WHEN CLICK OUTSIDE */
+
+window.onclick = function(event){
+
+  const modals =
+    document.querySelectorAll(".modal");
+
+  modals.forEach(modal=>{
+
+    if(event.target === modal){
+
+      modal.style.display = "none";
+
+    }
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
+```
